@@ -1,6 +1,6 @@
-import { Mic, MicOff, User } from "lucide-react"
+import { Mic, MicOff, User, Hand, } from "lucide-react"
 
-export function VideoTile({ name, isMuted, isLocal = false }) {
+export function VideoTile({ name, isMuted, isVideoOff, isHandRaised, isLocal = false }) {
   const colors = [
     "from-blue-400 to-blue-600",
     "from-green-400 to-green-600",
@@ -14,25 +14,21 @@ export function VideoTile({ name, isMuted, isLocal = false }) {
   const gradientColor = colors[colorIndex]
 
   return (
-    // <div style={{ position: "relative",
-    //   background: "#111827", 
-    //   borderRadius: "0.5rem", overflow: "hidden", 
-    //   aspectRatio: "16/9", 
-    //   width:"450px", display: "flex", 
-    //   justifyContent: "center", alignItems: "center",
-    //   gap:"25px", padding: "14px 16px",flexWrap: "wrap" }}
-    //    className="group">
-    //   <div style={{ background: `#1f2937,linear-gradient(to bottom right, ${gradientColor})`, 
-    //   borderRadius: "0.5rem",absolute: "absolute", 
-    //   inset: "0", display: "flex", alignItems: "center", 
-    //   justifyContent: "center" }}
-    //   > padding: 14px 16px
      <div className="relative bg-gray-900 rounded-lg overflow-hidden aspect-video w-full max-w-sm flex items-center justify-center gap-6 p-4 group">
-      <div className={`absolute inset-0 bg-gradient-to-br ${gradientColor} opacity-20`}>
-        <div className="bg-white/20 backdrop-blur-sm rounded-full p-6">
-          <User className="w-16 h-16 text-white" />
+      {isVideoOff ? (
+        <>
+          <div className={`absolute inset-0 bg-gradient-to-br ${gradientColor} opacity-20`}></div>
+          <div className="relative z-10 flex flex-col items-center">
+            <div className="bg-white/20 backdrop-blur-sm rounded-full p-6">
+              <User className="w-16 h-16 text-white" />
+            </div>
+          </div>
+        </>
+      ) : (
+        <div className="absolute inset-0">
+          {/* Video element would go here */}
         </div>
-      </div>
+      )}
 
       <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-3">
         <div className="flex items-center justify-between">
@@ -54,6 +50,12 @@ export function VideoTile({ name, isMuted, isLocal = false }) {
           </div>
         </div>
       </div>
+
+      {isHandRaised && (
+        <div className="absolute top-3 left-3">
+          <Hand className="w-6 h-6 text-yellow-400" />
+        </div>
+      )}
 
       <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
         <button className="bg-black/50 hover:bg-black/70 text-white p-2 rounded-lg backdrop-blur-sm">
