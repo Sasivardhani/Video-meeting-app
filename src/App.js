@@ -1,7 +1,6 @@
 import { useState } from "react"
-import { HomePage } from "./components/HomePage"
 import { MeetingRoom } from "./components/MeetingRoom"
-
+import { LoginPage } from "./components/LoginPage"
 function App() {
   const [currentView, setCurrentView] = useState("home")
   const [meetingCode, setMeetingCode] = useState("")
@@ -43,16 +42,15 @@ function App() {
   const handleSignOut = () => {
     setSignedInUser("")
   }
-
   return (
     <>
       {currentView === "home" ? (
-        <HomePage
-          onCreateMeeting={handleCreateMeeting}
-          onJoinMeeting={handleJoinMeeting}
+        <LoginPage
           signedInUser={signedInUser}
           onSignIn={handleSignIn}
           onSignOut={handleSignOut}
+          onCreateMeeting={handleCreateMeeting}
+          onJoinMeeting={handleJoinMeeting}
         />
       ) : (
         <MeetingRoom
@@ -61,7 +59,8 @@ function App() {
         />
       )}
     </>
-  )
+ )
 }
+
 
 export default App
